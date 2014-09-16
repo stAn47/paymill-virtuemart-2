@@ -376,6 +376,11 @@ class plgVmPaymentPaymill extends vmPSPlugin {
      *
      */
     public function plgVmOnSelectCheckPayment(VirtueMartCart $cart) {
+    	
+    	if (!$this->selectedThisByMethodId($cart->virtuemart_paymentmethod_id)) {
+			return null; // Another method was selected, do nothing
+		}
+		
 		if ($this->getPluginMethods ($cart->vendorId) === 0) {
 			if (empty($this->_name)) {
 				$app = JFactory::getApplication ();
